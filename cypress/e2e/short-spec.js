@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import { resetDatabase } from './utils'
+import { resetDatabase } from '../utils'
 
 it('opens the page', () => {
   resetDatabase()
@@ -35,13 +35,12 @@ describe('todos', () => {
       .type('learn testing{enter}')
       .type('be cool{enter}')
     cy.get('.todo-list li').should('have.length', 2)
-    cy.contains('foo', {timeout: 100000})
+    cy.contains('foo', { timeout: 100000 })
   })
 })
 
 it('mocks todos', () => {
-  cy.server()
-  cy.route('http://localhost:3000/todos', [{
+  cy.intercept('http://localhost:3000/todos', [{
     completed: true,
     id: '111',
     title: 'stub server'
@@ -52,8 +51,9 @@ it('mocks todos', () => {
 })
 
 it('mocks todos using fixture', () => {
-  cy.server()
-  cy.route('http://localhost:3000/todos', 'fx:todos')
+  cy.fixture('todos.json').then(todo => {
+    cy.intercept('/todos', todo)
+  })
   cy.visit('http://localhost:3000')
   cy.get('.todo-list li.completed')
     .should('have.length', 1)

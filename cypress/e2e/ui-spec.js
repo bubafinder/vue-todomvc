@@ -7,7 +7,7 @@ import {
   enterTodo,
   getTodoItems,
   getTodoItem
-} from './utils'
+} from '../utils'
 
 it('loads the app', () => {
   visit()

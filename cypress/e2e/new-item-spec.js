@@ -1,7 +1,5 @@
 /// <reference types="cypress" />
-import {
-  resetDatabase,
-} from './utils'
+import { resetDatabase } from '../utils'
 
 // https://github.com/bahmutov/cy-spok
 import spok from 'cy-spok'

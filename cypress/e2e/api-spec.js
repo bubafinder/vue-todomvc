@@ -7,7 +7,7 @@ import {
   enterTodo,
   getTodoItems,
   stubMathRandom
-} from './utils'
+} from '../utils'
 
 // testing TodoMVC server API
 describe('via API', () => {
@@ -68,8 +68,7 @@ describe('via API', () => {
 })
 
 it('initial todos', () => {
-  cy.server()
-  cy.route('/todos', [
+  cy.intercept('/todos', [
     {
       title: 'mock first',
       completed: false,
@@ -96,8 +95,7 @@ describe('API', () => {
   beforeEach(stubMathRandom)
 
   it('receives empty list of items', () => {
-    cy
-      .request('todos')
+    cy.request('todos')
       .its('body')
       .should('deep.equal', [])
   })
@@ -108,8 +106,7 @@ describe('API', () => {
 
     cy.request('POST', 'todos', first)
     cy.request('POST', 'todos', second)
-    cy
-      .request('todos')
+    cy.request('todos')
       .its('body')
       .should('have.length', 2)
       .and('deep.equal', [first, second])
@@ -121,31 +118,27 @@ describe('API', () => {
     cy.request('POST', 'todos', first)
     cy.request('POST', 'todos', second)
     cy.request('DELETE', `todos/${first.id}`)
-    cy
-      .request('todos')
+    cy.request('todos')
       .its('body')
       .should('have.length', 1)
       .and('deep.equal', [second])
   })
 
   it('does not delete non-existent item', () => {
-    cy
-      .request({
-        method: 'DELETE',
-        url: 'todos/aaa111bbb',
-        failOnStatusCode: false
-      })
+    cy.request({
+      method: 'DELETE',
+      url: 'todos/aaa111bbb',
+      failOnStatusCode: false
+    })
       .its('status')
       .should('equal', 404)
   })
 
   it('is adding todo item', () => {
-    cy.server()
-    cy
-      .route({
-        method: 'POST',
-        url: '/todos'
-      })
+    cy.intercept({
+      method: 'POST',
+      url: '/todos'
+    })
       .as('postTodo')
 
     // go through the UI
@@ -153,8 +146,7 @@ describe('API', () => {
 
     // thanks to stubbed random id generator
     // we can "predict" what the TODO object is going to look like
-    cy
-      .wait('@postTodo')
+    cy.wait('@postTodo')
       .its('request.body')
       .should('deep.equal', {
         title: 'first item',
@@ -164,12 +156,10 @@ describe('API', () => {
   })
 
   it('is deleting a todo item', () => {
-    cy.server()
-    cy
-      .route({
-        method: 'DELETE',
-        url: '/todos/1'
-      })
+    cy.intercept({
+      method: 'DELETE',
+      url: '/todos/1'
+    })
       .as('deleteTodo')
 
     // go through the UI
