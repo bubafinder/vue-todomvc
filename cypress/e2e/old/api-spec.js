@@ -1,17 +1,11 @@
+/// <reference types="Cypress" />
 /* eslint-env mocha */
 /* global cy */
-import {
-  resetDatabase,
-  visit,
-  makeTodo,
-  enterTodo,
-  getTodoItems,
-  stubMathRandom
-} from '../utils'
+import * as utils from '../../utils'
 
 // testing TodoMVC server API
 describe('via API', () => {
-  beforeEach(resetDatabase)
+  beforeEach(utils.resetDatabase)
 
   // used to create predictable ids
   let counter = 1
@@ -81,8 +75,9 @@ it('initial todos', () => {
     }
   ])
 
-  visit()
-  getTodoItems()
+  utils.visit()
+  utils
+    .getTodoItems()
     .should('have.length', 2)
     .contains('li', 'mock second')
     .find('.toggle')
@@ -90,9 +85,9 @@ it('initial todos', () => {
 })
 
 describe('API', () => {
-  beforeEach(resetDatabase)
-  beforeEach(visit)
-  beforeEach(stubMathRandom)
+  beforeEach(utils.resetDatabase)
+  beforeEach(utils.visit)
+  beforeEach(utils.stubMathRandom)
 
   it('receives empty list of items', () => {
     cy.request('todos')
@@ -101,8 +96,8 @@ describe('API', () => {
   })
 
   it('adds two items', () => {
-    const first = makeTodo()
-    const second = makeTodo()
+    const first = utils.makeTodo()
+    const second = utils.makeTodo()
 
     cy.request('POST', 'todos', first)
     cy.request('POST', 'todos', second)
@@ -113,8 +108,8 @@ describe('API', () => {
   })
 
   it('adds two items and deletes one', () => {
-    const first = makeTodo()
-    const second = makeTodo()
+    const first = utils.makeTodo()
+    const second = utils.makeTodo()
     cy.request('POST', 'todos', first)
     cy.request('POST', 'todos', second)
     cy.request('DELETE', `todos/${first.id}`)
@@ -138,11 +133,10 @@ describe('API', () => {
     cy.intercept({
       method: 'POST',
       url: '/todos'
-    })
-      .as('postTodo')
+    }).as('postTodo')
 
     // go through the UI
-    enterTodo('first item') // id "1"
+    utils.enterTodo('first item') // id "1"
 
     // thanks to stubbed random id generator
     // we can "predict" what the TODO object is going to look like
@@ -159,12 +153,12 @@ describe('API', () => {
     cy.intercept({
       method: 'DELETE',
       url: '/todos/1'
-    })
-      .as('deleteTodo')
+    }).as('deleteTodo')
 
     // go through the UI
-    enterTodo('first item') // id "1"
-    getTodoItems()
+    utils.enterTodo('first item') // id "1"
+    utils
+      .getTodoItems()
       .first()
       .find('.destroy')
       .click({ force: true })

@@ -34,7 +34,7 @@
         state.todos.push(todoObject)
       },
       REMOVE_TODO (state, todo) {
-        var todos = state.todos
+        const todos = state.todos
         todos.splice(todos.indexOf(todo), 1)
       },
       CLEAR_NEW_TODO (state) {
@@ -42,7 +42,7 @@
         console.log('clearing new todo')
       },
       CHANGE_TODO_COMPLETED (state, { todo, checked }) {
-        var todos = state.todos
+        const todos = state.todos
         todos.splice(
           todos.indexOf(todo),
           1,
@@ -137,7 +137,7 @@
 
       changeTodoCompleted (todo, e) {
         this.$store.dispatch('changeTodoCompleted', {
-          todo: todo,
+          todo,
           checked: e.target.checked
         })
       },

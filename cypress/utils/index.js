@@ -12,7 +12,7 @@ export const getTodoItems = () => getTodoApp().find('.todo-list').find('li')
 export const getTodoItem = (index = 1) =>
   cy.get(`.todo-list li:nth-child(${index})`)
 
-export const newId = () => Math.random().toString().substr(2, 10)
+export const newId = () => Math.random().toString().substring(2, 10)
 
 // if we expose "newId" factory method from the application
 // we can easily stub it. But this is a realistic example of

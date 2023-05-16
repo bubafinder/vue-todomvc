@@ -1,19 +1,13 @@
+/// <reference types="Cypress" />
 /* eslint-env mocha */
-/* global cy, Cypress */
-import {
-  resetDatabase,
-  visit,
-  newId,
-  enterTodo,
-  stubMathRandom,
-  makeTodo,
-  getTodoItems
-} from '../utils'
+/* global cy */
+import * as utils from '../../utils'
+import _ from 'lodash'
 
 // testing the central Vuex data store
 describe('UI to Vuex store', () => {
-  beforeEach(resetDatabase)
-  beforeEach(visit)
+  beforeEach(utils.resetDatabase)
+  beforeEach(utils.visit)
 
   const getStore = () => cy.window().its('app.$store')
 
@@ -35,8 +29,7 @@ describe('UI to Vuex store', () => {
 
   it('can enter new todo text', () => {
     const text = 'learn how to test with Cypress.io'
-    cy
-      .get('.todoapp')
+    cy.get('.todoapp')
       .find('.new-todo')
       .type(text)
       .trigger('change')
@@ -47,14 +40,14 @@ describe('UI to Vuex store', () => {
   })
 
   it('stores todos in the store', () => {
-    enterTodo('first todo')
-    enterTodo('second todo')
+    utils.enterTodo('first todo')
+    utils.enterTodo('second todo')
 
     getStore()
       .its('state.todos')
       .should('have.length', 2)
 
-    const removeIds = list => list.map(todo => Cypress._.omit(todo, 'id'))
+    const removeIds = list => list.map(todo => _.omit(todo, 'id'))
     getStore()
       .its('state.todos')
       .then(removeIds)
@@ -81,8 +74,8 @@ describe('UI to Vuex store', () => {
 
   it('stores todos in the store (with ids)', () => {
     stubMathRandom()
-    enterTodo('first todo')
-    enterTodo('second todo')
+    utils.enterTodo('first todo')
+    utils.enterTodo('second todo')
 
     getStore()
       .its('state.todos')
@@ -106,15 +99,14 @@ describe('UI to Vuex store', () => {
 })
 
 describe('Vuex store', () => {
-  beforeEach(resetDatabase)
-  beforeEach(visit)
-  beforeEach(stubMathRandom)
+  beforeEach(utils.resetDatabase)
+  beforeEach(utils.visit)
+  beforeEach(utils.stubMathRandom)
 
   let store
 
   beforeEach(() => {
-    cy
-      .window()
+    cy.window()
       .its('app')
       .its('$store')
       .then(s => {
@@ -140,8 +132,7 @@ describe('Vuex store', () => {
 
   it('can enter new todo text', () => {
     const text = 'learn how to test with Cypress.io'
-    cy
-      .get('.todoapp')
+    cy.get('.todoapp')
       .find('.new-todo')
       .type(text)
       .trigger('change')
@@ -159,11 +150,10 @@ describe('Vuex store', () => {
 
   it('can add a todo, type and compare entire store', () => {
     const title = 'a random todo'
-    enterTodo(title)
+    utils.enterTodo(title)
 
     const text = 'learn how to test with Cypress.io'
-    cy
-      .get('.todoapp')
+    cy.get('.todoapp')
       .find('.new-todo')
       .type(text)
       .trigger('change')
@@ -182,8 +172,8 @@ describe('Vuex store', () => {
   })
 
   it('can add a todo', () => {
-    const title = `a single todo ${newId()}`
-    enterTodo(title)
+    const title = `a single todo ${utils.newId()}`
+    utils.enterTodo(title)
     getStoreTodos()
       .should('have.length', 1)
       .its('0')
@@ -193,8 +183,8 @@ describe('Vuex store', () => {
   // thanks to predictable random id generation
   // we know the objects in the todos list
   it('can add a particular todo', () => {
-    const title = `a single todo ${newId()}`
-    enterTodo(title)
+    const title = `a single todo ${utils.newId()}`
+    utils.enterTodo(title)
     getStoreTodos().should('deep.equal', [
       {
         title,
@@ -205,19 +195,20 @@ describe('Vuex store', () => {
   })
 
   it('can add two todos and delete one', () => {
-    const first = makeTodo()
-    const second = makeTodo()
+    const first = utils.makeTodo()
+    const second = utils.makeTodo()
 
-    enterTodo(first.title)
-    enterTodo(second.title)
+    utils.enterTodo(first.title)
+    utils.enterTodo(second.title)
 
-    getTodoItems()
+    utils
+      .getTodoItems()
       .should('have.length', 2)
       .first()
       .find('.destroy')
       .click({ force: true })
 
-    getTodoItems().should('have.length', 1)
+    utils.getTodoItems().should('have.length', 1)
 
     getStoreTodos().should('deep.equal', [
       {
@@ -228,13 +219,14 @@ describe('Vuex store', () => {
     ])
   })
 
-  it('can be driven by dispatching actions', () => {
+  it('can be driven by dispatching utilss', () => {
     store.dispatch('setNewTodo', 'a new todo')
     store.dispatch('addTodo')
     store.dispatch('clearNewTodo')
 
     // assert UI
-    getTodoItems()
+    utils
+      .getTodoItems()
       .should('have.length', 1)
       .first()
       .contains('a new todo')
@@ -254,12 +246,12 @@ describe('Vuex store', () => {
   })
 })
 
-describe('Store actions', () => {
+describe('Store utilss', () => {
   const getStore = () => cy.window().its('app.$store')
 
-  beforeEach(resetDatabase)
-  beforeEach(visit)
-  beforeEach(stubMathRandom)
+  beforeEach(utils.resetDatabase)
+  beforeEach(utils.visit)
+  beforeEach(utils.stubMathRandom)
 
   it('changes the state', () => {
     getStore().then(store => {
@@ -291,7 +283,8 @@ describe('Store actions', () => {
     })
 
     // assert UI
-    getTodoItems()
+    utils
+      .getTodoItems()
       .should('have.length', 1)
       .first()
       .contains('a new todo')
@@ -301,8 +294,7 @@ describe('Store actions', () => {
     cy.intercept({
       method: 'POST',
       url: '/todos'
-    })
-      .as('postTodo')
+    }).as('postTodo')
 
     getStore().then(store => {
       store.dispatch('setNewTodo', 'a new todo')

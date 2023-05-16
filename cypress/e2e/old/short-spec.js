@@ -1,5 +1,7 @@
-/// <reference types="cypress" />
-import { resetDatabase } from '../utils'
+/// <reference types="Cypress" />
+/* eslint-env mocha */
+/* global cy */
+import { resetDatabase } from '../../utils'
 
 it('opens the page', () => {
   resetDatabase()
@@ -13,8 +15,7 @@ it('adds 2 todos', () => {
   cy.get('.new-todo')
     .type('learn testing{enter}')
     .type('be cool{enter}')
-  cy.get('.todo-list li')
-    .should('have.length', 2)
+  cy.get('.todo-list li').should('have.length', 2)
 })
 
 describe('todos', () => {
@@ -40,14 +41,15 @@ describe('todos', () => {
 })
 
 it('mocks todos', () => {
-  cy.intercept('http://localhost:3000/todos', [{
-    completed: true,
-    id: '111',
-    title: 'stub server'
-  }])
+  cy.intercept('http://localhost:3000/todos', [
+    {
+      completed: true,
+      id: '111',
+      title: 'stub server'
+    }
+  ])
   cy.visit('http://localhost:3000')
-  cy.get('.todo-list li.completed')
-    .should('have.length', 1)
+  cy.get('.todo-list li.completed').should('have.length', 1)
 })
 
 it('mocks todos using fixture', () => {
@@ -55,6 +57,5 @@ it('mocks todos using fixture', () => {
     cy.intercept('/todos', todo)
   })
   cy.visit('http://localhost:3000')
-  cy.get('.todo-list li.completed')
-    .should('have.length', 1)
+  cy.get('.todo-list li.completed').should('have.length', 1)
 })
