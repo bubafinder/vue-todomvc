@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 /* eslint-env mocha */
 /* global cy */
-import { resetDatabase } from '../../utils'
+import { resetDatabase } from '../utils'
 
 it('opens the page', () => {
   resetDatabase()

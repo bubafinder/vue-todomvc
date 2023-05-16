@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 /* eslint-env mocha */
 /* global cy */
-import * as utils from '../../utils'
+import * as utils from '../utils'
 
 // testing TodoMVC server API
 describe('via API', () => {
