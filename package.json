@@ -11,8 +11,8 @@
     "start": "json-server data.json --static . --middlewares ./node_modules/json-server-reset",
     "poststart": "npm run reset:database",
     "pretest": "npm run lint",
-    "lint": "standard '*.js' 'cypress/integration/*.js'",
-    "prelint": "prettier-standard '*.js' 'cypress/integration/*.js'",
+    "lint": "standard --fix '*.js' 'cypress/e2e/old/*.js'",
+    "prelint": "prettier-standard '*.js' 'cypress/e2e/old/*.js'",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:run:record": "cypress run --record",
@@ -41,7 +41,7 @@
     "cypress": "12.9.0",
     "json-server-reset": "1.6.0",
     "prettier": "2.8.4",
-    "prettier-standard": "16.4.1",
+    "prettier-standard": "15.0.1",
     "standard": "17.0.0",
     "start-server-and-test": "1.15.4"
   }
