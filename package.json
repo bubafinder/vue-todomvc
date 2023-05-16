@@ -1,7 +1,7 @@
 {
   "name": "vue-vuex-todomvc",
   "version": "1.0.0",
-  "description": "Simple TodoMVC with Vue and Vuex",
+  "description": "Simple TodoMVC app used for DUMP workshop",
   "main": "app.js",
   "scripts": {
     "test": "start-server-and-test start http://localhost:3000 cy:run",
@@ -13,10 +13,6 @@
     "pretest": "npm run lint",
     "lint": "standard --fix '*.js' 'cypress/e2e/*.js'",
     "prelint": "prettier-standard '*.js' 'cypress/e2e/*.js'",
-    "cy:open": "cypress open",
-    "cy:run": "cypress run",
-    "cy:run:record": "cypress run --record",
-    "cy:verify": "cypress verify",
     "reset:database": "echo '{\"todos\":[]}\n' > data.json",
     "reset": "npm run reset:database",
     "dev": "start-test 3000 cy:open"
@@ -38,7 +34,6 @@
   },
   "devDependencies": {
     "cy-spok": "1.6.1",
-    "cypress": "12.9.0",
     "json-server-reset": "1.6.0",
     "prettier": "2.8.4",
     "prettier-standard": "15.0.1",
