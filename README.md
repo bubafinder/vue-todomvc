@@ -1,3 +1,31 @@
+# Cypress + Percy Workshop
+
+## Pre-requisites
+### MacOS
+1. Install VS Code - https://code.visualstudio.com/download
+2. Install Node.JS - https://nodejs.org/en/download
+3. Install Git - https://git-scm.com/download/mac
+
+### Windows 
+1. Install VS Code - https://code.visualstudio.com/download
+2. Install Node.JS - https://nodejs.org/en/download
+3. Install Git - https://git-scm.com/download/win
+#
+## Setup App
+1. Clone repository
+2. Run `npm install`
+3. Run `npm start` - Start App
+
+## Running Cypress
+Run `npm run dev` - Start App and Cypress
+
+Run `npm run cy:open` - Open Cypress
+
+
+
+
+#
+
 # vue-vuex-todomvc [![renovate-app badge][renovate-badge]][renovate-app] [![ci status][ci image]][ci url] ![cypress version](https://img.shields.io/badge/cypress-11.2.0-brightgreen)
 
 Simple TodoMVC with [Vue.js](https://vuejs.org/)
