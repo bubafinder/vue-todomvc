@@ -21,6 +21,12 @@ Run `npm run dev` - Start App and Cypress
 
 Run `npm run cy:open` - Open Cypress
 
+## Percy
+Username: mlovric+dump@extensionengine.com
+
+Password: ******
+
+export PERCY_TOKEN=web_a7cebe60b9911dcc6be846b785cb2759c407f87550eb77e8d61c45bfe197fa7d
 
 
 
