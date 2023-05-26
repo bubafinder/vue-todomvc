@@ -1,32 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 <html data-framework="vue">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Vue.js • TodoMVC</title>
-    <link rel="stylesheet" href="node_modules/todomvc-common/base.css">
-		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
-    <style>[v-cloak] { display: none; }</style>
+    <link rel="stylesheet" href="node_modules/todomvc-common/base.css" />
+    <link rel="stylesheet" href="node_modules/todomvc-app-css/index.css" />
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <section class="todoapp">
       <header class="header">
         <h1>todos</h1>
-        <input class="new-todo"
-          autofocus autocomplete="off"
+        <input
+          class="new-todo"
+          autofocus
+          autocomplete="off"
           placeholder="What needs to be done?"
           :value="newTodo"
           @change="setNewTodo"
           @keyup.enter="addTodo"
-          >
+        />
       </header>
       <section class="main" v-show="todos.length" v-cloak>
         <ul class="todo-list">
-          <li v-for="todo in todos"
+          <li
+            v-for="todo in todos"
             class="todo"
             :key="todo.id"
-            :class="{ completed: todo.completed }">
+            :class="{ completed: todo.completed }"
+          >
             <div class="view">
-              <input class="toggle" type="checkbox" :checked="todo.completed" @change="changeTodoCompleted(todo, $event)">
+              <input
+                class="toggle"
+                type="checkbox"
+                :checked="todo.completed"
+                @change="changeTodoCompleted(todo, $event)"
+              />
               <label>{{ todo.title }}</label>
               <button class="destroy" @click="removeTodo(todo)"></button>
             </div>
