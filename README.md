@@ -68,6 +68,9 @@ Pass: on paper
 }
 ```
 
+#### Update `cy:run` to
+`"cy:run": "cypress run  --spec 'cypress/e2e/!(visual.cy.js)**'"`
+
 ### Pre-requisites
 #### MacOS
 1. Install VS Code - https://code.visualstudio.com/download
