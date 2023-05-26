@@ -1,3 +1,78 @@
+# Cypress + Percy Workshop
+### Cypress
+
+#### Clone repository locally
+`git clone https://github.com/bubafinder/vue-todomvc.git`
+
+#### Install node packages
+`npm i`
+
+#### Run application
+`npm run start`           
+
+#### Application URL 
+`http://localhost:3000`
+
+#### Install Cypress
+`npm install cypress -D`
+
+#### Add Cypress launch scripts inside `package.json` file
+```
+{
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
+  }
+}
+```
+
+#### Add ‘baseUrl’ to the “cypress.config.js” file
+```
+module.exports = defineConfig {
+  e2e: {
+     baseUrl: ‘http://localhost:3000’  
+  }
+}
+```
+
+#### Run application & Open Cypress GUI
+`npm run dev`
+
+
+### Percy
+
+#### Percy URL
+`percy.io/login`
+
+#### Percy Login Credentials
+```
+Username: mlovric+dump@extensionengine.com
+Pass: on paper
+```
+
+#### Add PERCY_TOKEN (Run command inside terminal)
+`export PERCY_TOKEN=web_a7cebe60b9911dcc6be846b785cb2759c407f87550eb77e8d61c45bfe197fa7d`
+
+#### Install Percy CLI & Percy for Cypress packages
+`npm install -D @percy/cli @percy/cypress`
+
+#### Add Percy to the project `cypress/support/e2e.js`
+`import '@percy/cypress';`
+
+### Pre-requisites
+#### MacOS
+1. Install VS Code - https://code.visualstudio.com/download
+2. Install Node.JS - https://nodejs.org/en/download
+3. Install Git - https://git-scm.com/download/mac
+
+#### Windows 
+1. Install VS Code - https://code.visualstudio.com/download
+2. Install Node.JS - https://nodejs.org/en/download
+3. Install Git - https://git-scm.com/download/win
+
+
+# Original readme
+
 # vue-vuex-todomvc [![renovate-app badge][renovate-badge]][renovate-app] [![ci status][ci image]][ci url] ![cypress version](https://img.shields.io/badge/cypress-11.2.0-brightgreen)
 
 Simple TodoMVC with [Vue.js](https://vuejs.org/)
