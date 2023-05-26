@@ -10,10 +10,6 @@ beforeEach(() => {
   action.getTodoApp().should('be.visible')
 })
 
-it('App is visible', () => {
-  action.addTodoItem()
-})
-
 it('Create TODO item', () => {
   action.addTodoItem()
 })
