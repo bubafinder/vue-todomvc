@@ -17,9 +17,7 @@
     "reset": "npm run reset:database",
     "dev": "start-test 3000 cy:open",
     "cy:open": "cypress open",
-    "cy:run": "cypress run  --spec 'cypress/e2e/!(visual.cy.js)**'",
-    "test:visual": "start-server-and-test start http://localhost:3000 cy:visual",
-    "cy:visual": "percy exec -- cypress run --spec 'cypress/e2e/visual.cy.js'"
+    "cy:run": "cypress run"
   },
   "repository": {
     "type": "git",
@@ -37,8 +35,6 @@
     "todomvc-common": "1.0.5"
   },
   "devDependencies": {
-    "@percy/cli": "1.24.2",
-    "@percy/cypress": "3.1.2",
     "cypress": "12.13.0",
     "json-server-reset": "1.6.0",
     "prettier": "2.8.4",
