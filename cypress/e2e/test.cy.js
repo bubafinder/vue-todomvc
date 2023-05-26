@@ -3,13 +3,18 @@
 /* global cy */
 import * as action from '../actions'
 
+describe('DUMP workshop 2023', () => {
 beforeEach(() => {
   action.resetDB()
   action.visit()
   action.getTodoApp().should('be.visible')
 })
 
-it('TODO mvc UI test', () => {
+it('App is visible', () => {
+  action.addTodoItem()
+})
+
+it('Create TODO item', () => {
   action.addTodoItem()
 })
 
@@ -28,4 +33,5 @@ it('Uncomplete TODO item', () => {
 it('Delete TODO item', () => {
   action.addTodoItem()
   action.deleteTodoItem()
+})
 })
