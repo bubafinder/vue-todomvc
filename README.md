@@ -49,15 +49,24 @@ module.exports = defineConfig {
 Username: mlovric+dump@extensionengine.com
 Pass: on paper
 ```
+#### Install Percy CLI & Percy for Cypress packages
+`npm install -D @percy/cli @percy/cypress`
 
 #### Add PERCY_TOKEN (Run command inside terminal)
 `export PERCY_TOKEN=web_a7cebe60b9911dcc6be846b785cb2759c407f87550eb77e8d61c45bfe197fa7d`
 
-#### Install Percy CLI & Percy for Cypress packages
-`npm install -D @percy/cli @percy/cypress`
-
 #### Add Percy to the project `cypress/support/e2e.js`
 `import '@percy/cypress';`
+
+#### Add launch scripts for visual tests inside `package.json` file
+```
+{
+  "scripts": {
+    "test:visual": "start-server-and-test start http://localhost:3000 cy:visual",
+    "cy:visual": "percy exec -- cypress run --spec 'cypress/e2e/visual.cy.js'"
+  }
+}
+```
 
 ### Pre-requisites
 #### MacOS
